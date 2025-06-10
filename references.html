@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参考文献 - AI Agent最佳实践深度调研报告</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .content-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .reference-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .reference-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .reference-title {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .reference-url {
+            color: #667eea;
+            text-decoration: none;
+            word-break: break-all;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .reference-url:hover {
+            text-decoration: underline;
+        }
+
+        .reference-date {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .category-header h3 {
+            color: #667eea;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, #28a74510, #20c99710);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding: 20px 0;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-header h1 { font-size: 2rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="fas fa-robot"></i> AI Agent报告
+            </a>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="overview.html">概述</a>
+                <a href="vendors.html">厂商分析</a>
+                <a href="design.html">设计实践</a>
+                <a href="development.html">开发实践</a>
+                <a href="deployment.html">部署维护</a>
+                <a href="trends.html">新兴趋势</a>
+                <a href="conclusion.html">结论建议</a>
+                <a href="resources.html">学习资源</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-book-open"></i> 参考文献与扩展阅读</h1>
+            <p>本报告所引用的权威资源和扩展阅读材料</p>
+        </div>
+
+        <div class="stats-box">
+            <h3 style="color: #28a745; margin-bottom: 20px;">文献统计</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">35+</span>
+                    <span class="stat-label">参考文献</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">学术论文</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">主要厂商</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">技术框架</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-graduation-cap"></i> 学术研究论文</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">AI Agents vs. Agentic AI: A Conceptual Taxonomy, Applications and Challenges</div>
+                <a href="https://arxiv.org/abs/2505.10468" target="_blank" class="reference-url">https://arxiv.org/abs/2505.10468</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Agentic AI Needs a Systems Theory</div>
+                <a href="https://arxiv.org/html/2503.00237v1" target="_blank" class="reference-url">https://arxiv.org/html/2503.00237v1</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">The Self-Learning Agent with a Progressive Neural Network Integrated Transformer</div>
+                <a href="https://arxiv.org/abs/2504.02489" target="_blank" class="reference-url">https://arxiv.org/abs/2504.02489</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Interactive Debugging and Steering of Multi-Agent AI Systems</div>
+                <a href="https://arxiv.org/html/2503.02068v1" target="_blank" class="reference-url">https://arxiv.org/html/2503.02068v1</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Collaborating with AI Agents: Field Experiments on Teamwork, Productivity, and Performance</div>
+                <a href="https://arxiv.org/abs/2503.18238" target="_blank" class="reference-url">https://arxiv.org/abs/2503.18238</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Agent Communication Protocol Research</div>
+                <a href="https://arxiv.org/abs/2504.16736" target="_blank" class="reference-url">https://arxiv.org/abs/2504.16736</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-building"></i> 主要厂商官方文档</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Best practices for prompt engineering with the OpenAI API</div>
+                <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api" target="_blank" class="reference-url">https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Agent Development Kit: Making it easy to build multi-agent applications</div>
+                <a href="https://developers.googleblog.com/en/agent-development-kit-easy-to-build-multi-agent-applications/" target="_blank" class="reference-url">https://developers.googleblog.com/en/agent-development-kit-easy-to-build-multi-agent-applications/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Write effective instructions for declarative agents | Microsoft Learn</div>
+                <a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/declarative-agent-instructions" target="_blank" class="reference-url">https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/declarative-agent-instructions</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Building Effective AI Agents - Anthropic</div>
+                <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" class="reference-url">https://www.anthropic.com/engineering/building-effective-agents</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Claude Code Best Practices - Anthropic</div>
+                <a href="https://www.anthropic.com/engineering/claude-code-best-practices" target="_blank" class="reference-url">https://www.anthropic.com/engineering/claude-code-best-practices</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Best practices | Llama API - Meta Developer Center</div>
+                <a href="https://llama.developer.meta.com/docs/guides/best-practices" target="_blank" class="reference-url">https://llama.developer.meta.com/docs/guides/best-practices</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Llama API overview - Meta Developer Center</div>
+                <a href="https://llama.developer.meta.com/docs/overview/" target="_blank" class="reference-url">https://llama.developer.meta.com/docs/overview/</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-tools"></i> 技术框架与工具</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Agents - LlamaIndex</div>
+                <a href="https://docs.llamaindex.ai/en/stable/use_cases/agents/" target="_blank" class="reference-url">https://docs.llamaindex.ai/en/stable/use_cases/agents/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">A Guide to Reflection Agents Using LlamaIndex - Analytics Vidhya</div>
+                <a href="https://www.analyticsvidhya.com/blog/2024/08/a-guide-to-reflection-agents-using-llamaindex/" target="_blank" class="reference-url">https://www.analyticsvidhya.com/blog/2024/08/a-guide-to-reflection-agents-using-llamaindex/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">A Long-Term Memory Agent | LangChain</div>
+                <a href="https://python.langchain.com/docs/versions/migrating_memory/long_term_memory_agent/" target="_blank" class="reference-url">https://python.langchain.com/docs/versions/migrating_memory/long_term_memory_agent/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Agentic Frameworks: A Guide to the Systems Used to Build AI Agents - Moveworks</div>
+                <a href="https://www.moveworks.com/us/en/resources/blog/what-is-agentic-framework" target="_blank" class="reference-url">https://www.moveworks.com/us/en/resources/blog/what-is-agentic-framework</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-cogs"></i> 技术实现与最佳实践</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Memory and State in LLM Applications - Arize AI</div>
+                <a href="https://arize.com/blog/memory-and-state-in-llm-applications/" target="_blank" class="reference-url">https://arize.com/blog/memory-and-state-in-llm-applications/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Build smarter AI agents: Manage short-term and long-term memory with Redis</div>
+                <a href="https://redis.io/blog/build-smarter-ai-agents-manage-short-term-and-long-term-memory-with-redis/" target="_blank" class="reference-url">https://redis.io/blog/build-smarter-ai-agents-manage-short-term-and-long-term-memory-with-redis/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">LLM Orchestration in 2025: Frameworks + Best Practices | Orq.ai</div>
+                <a href="https://orq.ai/blog/llm-orchestration" target="_blank" class="reference-url">https://orq.ai/blog/llm-orchestration</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">AI Metadata: Best Practices for AI-based Data Analysis - WisdomAI</div>
+                <a href="https://www.askwisdom.ai/ai-data-preparation/ai-metadata" target="_blank" class="reference-url">https://www.askwisdom.ai/ai-data-preparation/ai-metadata</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-shield-alt"></i> 安全性与评估</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">LLM Evaluation: Key Metrics, Best Practices and Frameworks - Aisera</div>
+                <a href="https://aisera.com/blog/llm-evaluation/" target="_blank" class="reference-url">https://aisera.com/blog/llm-evaluation/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Top 9 LLM Security Best Practices - Check Point Software</div>
+                <a href="https://www.checkpoint.com/cyber-hub/what-is-llm-security/llm-security-best-practices/" target="_blank" class="reference-url">https://www.checkpoint.com/cyber-hub/what-is-llm-security/llm-security-best-practices/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">LLM Security: Top 10 Risks & Best Practices to Mitigate Them - Cohere</div>
+                <a href="https://cohere.com/blog/llm-security" target="_blank" class="reference-url">https://cohere.com/blog/llm-security</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-industry"></i> 行业分析与指南</h3>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">OpenAI's AI Agent Guide, Decoded for Business (No Code Needed) - MindPal</div>
+                <a href="https://mindpal.space/blog/openai-ai-agent-guide-decoded-no-code" target="_blank" class="reference-url">https://mindpal.space/blog/openai-ai-agent-guide-decoded-no-code</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Top 10 Agentic AI Vendors to Watch in 2025 - Creole Studios</div>
+                <a href="https://www.creolestudios.com/top-agentic-ai-vendors/" target="_blank" class="reference-url">https://www.creolestudios.com/top-agentic-ai-vendors/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Comprehensive Guide to Building AI Agents with Google Vertex AI</div>
+                <a href="https://smythos.com/developers/agent-integrations/building-ai-agents-with-google-vertex-ai/" target="_blank" class="reference-url">https://smythos.com/developers/agent-integrations/building-ai-agents-with-google-vertex-ai/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Microsoft AI Agents Demystified - Lantern Studios</div>
+                <a href="https://lanternstudios.com/insights/blog/microsoft-ai-agents-demystified/" target="_blank" class="reference-url">https://lanternstudios.com/insights/blog/microsoft-ai-agents-demystified/</a>
+                <div class="reference-date"></div>
+            </div>
+
+            <div class="reference-item">
+                <div class="reference-title">Guidelines and best practices for automating with AI agent</div>
+                <a href="https://help.webex.com/en-us/article/nelkmxk/Guidelines-and-best-practices-for-automating-with-AI-agent" target="_blank" class="reference-url">https://help.webex.com/en-us/article/nelkmxk/Guidelines-and-best-practices-for-automating-with-AI-agent</a>
+                <div class="reference-date"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="category-header">
+                <h3><i class="fas fa-link"></i> 主要参考来源</h3>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea10, #764ba210); padding: 25px; border-radius: 10px; border-left: 4px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 15px;"><i class="fas fa-star"></i> 核心参考资源</h4>
+                <p style="margin-bottom: 15px;">本报告主要基于LangChain博客的深度调研内容，结合各大厂商官方文档和学术研究论文编写而成。</p>
+                <div class="reference-item" style="margin: 0;">
+                    <div class="reference-title">LangChain Blog - In the Loop Series</div>
+                    <a href="https://blog.langchain.dev/tag/in-the-loop/" target="_blank" class="reference-url">https://blog.langchain.dev/tag/in-the-loop/</a>
+                    <div class="reference-date">主要参考来源</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="resources.html" class="nav-button">
+                <i class="fas fa-arrow-left"></i> 返回学习资源
+            </a>
+            <a href="index.html" class="nav-button">
+                返回首页 <i class="fas fa-home"></i>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
